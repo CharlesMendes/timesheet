@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<translations>
+    <!-- =============================== -->
+    <!-- =========== GENERAL =========== -->
+    <!-- =============================== -->
+    <translation id="la-carregando">
+        <en-us>Loading...</en-us>
+        <pt-br>Carregando...</pt-br>
+    </translation>
+
+    <!-- =============================== -->
+    <!-- ============ Menu ============= -->
+    <!-- =============================== -->
+    <translation id="la-menu">
+        <en-us>Menu</en-us>
+        <pt-br>Menu</pt-br>
+    </translation>
+    <translation id="la-timesheet">
+        <en-us>Timesheet</en-us>
+        <pt-br>Timesheet</pt-br>
+    </translation>
+    <translation id="la-configuracoes">
+        <en-us>Settings</en-us>
+        <pt-br>Configurações</pt-br>
+    </translation>
+    <translation id="la-sobre">
+        <en-us>About</en-us>
+        <pt-br>Sobre</pt-br>
+    </translation>
+    
+    <!-- =============================== -->
+    <!-- ========== Timesheet ========== -->
+    <!-- =============================== -->
+    <translation id="la-lancar-horas">
+        <en-us>Launch</en-us>
+        <pt-br>Lançar</pt-br>
+    </translation>
+    <translation id="la-entrada">
+        <en-us>Start</en-us>
+        <pt-br>Entrada</pt-br>
+    </translation>
+    <translation id="la-almoco">
+        <en-us>Lunch</en-us>
+        <pt-br>Almoço</pt-br>
+    </translation>
+    <translation id="la-voltar">
+        <en-us>Back</en-us>
+        <pt-br>Volta</pt-br>
+    </translation>
+    <translation id="la-sair">
+        <en-us>End</en-us>
+        <pt-br>Saída</pt-br>
+    </translation>
+    
+    <!-- =============================== -->
+    <!-- ============ Sobre ============ -->
+    <!-- =============================== -->
+    <translation id="la-copyright">
+        <en-us>Developed by 4Coders © 2015</en-us>
+        <pt-br>Desenvolvido por 4Coders © 2015</pt-br>
+    </translation>
+    <translation id="la-avaliar">
+        <en-us>Review</en-us>
+        <pt-br>Avaliar</pt-br>
+    </translation>
+    <translation id="la-fechar">
+        <en-us>Close</en-us>
+        <pt-br>Fechar</pt-br>
+    </translation>
+    
+    <translation id="la-">
+        <en-us></en-us>
+        <pt-br></pt-br>
+    </translation>
+</translations>

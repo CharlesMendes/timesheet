@@ -1,0 +1,25 @@
+<ion-view view-title="Timesheet">
+    <ion-content>
+        <div class="content padding">
+            <center>
+                <h3 class="positive"><a class="button button-icon icon ion-chevron-left positive"></a> 99/99/9999 <a class="button button-icon icon ion-chevron-right positive"></a></h3>
+            </center>
+            <button class="button button-block button-large button-outline button-positive ion-android-time" onclick="MarcarHorario()">
+                Check
+            </button>
+            <div class="row positive list">
+                <div class="item positive col col-20"><center>Data</center></div>
+                <div class="item positive col col-20"><center>Chegada</center></div>
+                <div class="item positive col col-40"><center>Almoço</center></div>
+                <div class="item positive col col-20"><center>Saída</center></div>
+            </div>
+            <div ng-repeat="time in timesheet" class="row positive">
+                <div class="item positive col col-20"><center>{{ time.data }}</center></div>
+                <div class="item positive col col-20"><center>{{ time.horaEntrada }}</center></div>
+                <div class="item positive col col-20"><center>{{ time.horaSaidaAlmoco }}</center></div>
+                <div class="item positive col col-20"><center>{{ time.horaVoltaAlmoco }}</center></div>
+                <div class="item positive col col-20"><center>{{ time.horaSaida }}</center></div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

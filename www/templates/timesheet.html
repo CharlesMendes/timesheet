@@ -1,0 +1,31 @@
+<ion-view view-title="Timesheet">
+    <ion-content>
+        <div class="content padding">
+            <!--<center>
+                <h3 class="royal">
+                    <a class="button button-icon icon ion-chevron-left royal"></a>
+                        Fev/2015 
+                    <a class="button button-icon icon ion-chevron-right royal"></a>
+                </h3>
+            </center>-->
+            <button class="button button-block button-large button-outline button-royal ion-android-time" ng-click="apontarHoras()">
+                <span class="la-lancar-horas"></span>
+            </button>
+            <div ng-repeat="time in timesheet" class="list">
+                <div class="button-bar">
+                    <a class="button button-royal">
+                        {{ time.data }}
+                    </a>
+                </div>
+                
+                <div class="button-bar">
+                    <a class="button button-clear button-royal"><span class="la-entrada"></span>: {{ time.horaEntrada }}</a>
+                    <a class="button button-clear button-royal"><span class="la-almoco"></span>: {{ time.horaSaidaAlmoco }}</a>
+                </div>
+                <div class="button-bar">
+                    <a class="button button-clear button-royal"><span class="la-voltar"></span>: {{ time.horaVoltaAlmoco }}</a>
+                    <a class="button button-clear button-royal"><span class="la-sair"></span>: {{ time.horaSaida }}</a>
+                </div>
+            </div>
+    </ion-content>
+</ion-view>
