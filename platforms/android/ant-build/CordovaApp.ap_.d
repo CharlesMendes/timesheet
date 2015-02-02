@@ -43,6 +43,12 @@ d:\node\Timesheet\platforms\android\assets\www\img\ionic.png \
 d:\node\Timesheet\platforms\android\assets\www\js\app.js \
 d:\node\Timesheet\platforms\android\assets\www\js\controllers.js \
 d:\node\Timesheet\platforms\android\assets\www\js\ng-cordova.min.js \
+d:\node\Timesheet\platforms\android\assets\www\js\Sem título-1 \
+d:\node\Timesheet\platforms\android\assets\www\js\vendor \
+d:\node\Timesheet\platforms\android\assets\www\js\vendor\jquery-2.1.3.min.js \
+d:\node\Timesheet\platforms\android\assets\www\js\vendor\traducao \
+d:\node\Timesheet\platforms\android\assets\www\js\vendor\traducao\traducao.js \
+d:\node\Timesheet\platforms\android\assets\www\js\vendor\traducao\traducao.xml \
 d:\node\Timesheet\platforms\android\assets\www\lib\ionic \
 d:\node\Timesheet\platforms\android\assets\www\lib\ionic\css \
 d:\node\Timesheet\platforms\android\assets\www\lib\ionic\fonts \
@@ -123,7 +129,7 @@ d:\node\Timesheet\platforms\android\assets\www\plugins\com.ionic.keyboard\www\ke
 d:\node\Timesheet\platforms\android\assets\www\plugins\org.apache.cordova.device\www \
 d:\node\Timesheet\platforms\android\assets\www\plugins\org.apache.cordova.device\www\device.js \
 d:\node\Timesheet\platforms\android\assets\www\templates\about.html \
-d:\node\Timesheet\platforms\android\assets\www\templates\login.html \
 d:\node\Timesheet\platforms\android\assets\www\templates\menu.html \
+d:\node\Timesheet\platforms\android\assets\www\templates\settings.html \
 d:\node\Timesheet\platforms\android\assets\www\templates\timesheet.html \
 d:\node\Timesheet\platforms\android\ant-build\AndroidManifest.xml \

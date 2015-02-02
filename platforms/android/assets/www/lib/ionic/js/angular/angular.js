@@ -3779,7 +3779,8 @@ function annotate(fn, strictDi, name) {
  *
  *    it('saves to the tracking url', inject(function(eventTracker, $http) {
  *      postSpy = spyOn($http, 'post');
- *      eventTracker.event('login');
+ *      eventTracker.event('
+ ');
  *      eventTracker.save();
  *      expect(postSpy).toHaveBeenCalled();
  *      expect(postSpy.mostRecentCall.args[0]).not.toEqual('/track');

@@ -17,6 +17,14 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'
         //Cria o banco de dados
         db = $cordovaSQLite.openDB({ name: "timesheetDB.db" });
         $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS timesheet (id integer primary key, data text, horaEntrada text, horaSaidaAlmoco text, horaVoltaAlmoco text, horaSaida text)");
+        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS settings (id integer primary key, key text, value text)");
+        
+        var query = "INSERT INTO settings (key, value) VALUES (?, ?)";
+        $cordovaSQLite.execute(db, query, ["IDIOMA", "pt-br"]).then(function(res) {
+            console.log("insertId IDIOMA: " + res.insertId);
+        }, function (err) {
+            console.error(err);
+        });
     });
 })
 

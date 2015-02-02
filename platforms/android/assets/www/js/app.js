@@ -1,7 +1,7 @@
 var db = null;
 var app = angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $cordovaSQLite) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -14,8 +14,17 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'
             StatusBar.styleDefault();
         }
         
-        db = $cordovaSQLite.openDB({ name: "my.db" });
+        //Cria o banco de dados
+        db = $cordovaSQLite.openDB({ name: "timesheetDB.db" });
         $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS timesheet (id integer primary key, data text, horaEntrada text, horaSaidaAlmoco text, horaVoltaAlmoco text, horaSaida text)");
+        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS settings (id integer primary key, key text, value text)");
+        
+        var query = "INSERT INTO settings (key, value) VALUES (?, ?)";
+        $cordovaSQLite.execute(db, query, ["IDIOMA", "pt-br"]).then(function(res) {
+            console.log("insertId IDIOMA: " + res.insertId);
+        }, function (err) {
+            console.error(err);
+        });
     });
 })
 
@@ -26,14 +35,15 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'
         url: "/app",
         abstract: true,
         templateUrl: "templates/menu.html",
-        controller: 'AppCtrl'
+        controller: 'AppController'
     })
     
-    .state('app.about', {
-        url: "/about",
+    .state('app.settings', {
+        url: "/settings",
         views: {
             'menuContent': {
-                templateUrl: "templates/about.html"
+                templateUrl: "templates/settings.html",
+                controller: 'SettingsController'
             }
         }
     })
@@ -43,7 +53,7 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'
         views: {
             'menuContent': {
                 templateUrl: "templates/timesheet.html",
-                controller: 'TimesheetCtrl'
+                controller: 'TimesheetController'
             }
         }
     })

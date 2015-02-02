@@ -1,3 +1,5 @@
+var idiomaSelecionado = "pt-br";
+
 angular.module('starter.controllers', [])
 
 .controller('AppController', function($scope, $ionicModal, $timeout) {
@@ -21,7 +23,7 @@ angular.module('starter.controllers', [])
         $scope.modal.show();
         
         //Altera o idioma do app
-        ChangeLanguage();
+        ChangeLanguage(idiomaSelecionado);
     };
     
     // Perform the login action when the user submits the login form
@@ -36,7 +38,7 @@ angular.module('starter.controllers', [])
     };
     
     //Altera o idioma do app
-    ChangeLanguage();
+    ChangeLanguage(idiomaSelecionado);
 })
 
 .controller('TimesheetController', function($scope, $cordovaSQLite) {
@@ -44,7 +46,7 @@ angular.module('starter.controllers', [])
     $scope.apontarHoras = function() {
         
         var query = MarcarHorario(1);
-        $cordovaSQLite.execute(db, query,'').then(function(res) {
+        $cordovaSQLite.execute(db, query, '').then(function(res) {
             var message = "INSERT ID -> " + res.insertId;
             console.log(message);
             alert(message);
@@ -53,21 +55,51 @@ angular.module('starter.controllers', [])
             console.error(err);
             alert(err);
         });
+        
+        $scope.timesheet = ListarApontamentos();
+        
+        //Altera o idioma do app
+        ChangeLanguage(idiomaSelecionado);
     }
     
     $scope.timesheet = ListarApontamentos();
     
+    /*$scope.timesheet = function() {
+        var lista;
+        var query = "SELECT data, horaEntrada, horaSaidaAlmoco, horaVoltaAlmoco, horaSaida FROM timesheet order by id desc";
+        alert(query);
+        $cordovaSQLite.execute(db, query, '').then(function(res) {
+            alert('teste');
+            if(res.rows.length > 0) {
+                lista = res.rows.item;
+                alert('sucesso');
+                alert(lista);
+
+            } else {
+                console.log("No results found");
+                alert("Nenhum resultado encontrado");
+            }
+
+        }, function (err) {
+            console.error(err);
+            alert(err);
+        });
+    }*/
+    
     //Altera o idioma do app
-    ChangeLanguage();
+    ChangeLanguage(idiomaSelecionado);
 })
 
-.controller('SettingsController', function($scope) {
-    $scope.testeApp = 'teste';
-    //Altera o idioma do app
-    ChangeLanguage();
+.controller('SettingsController', function($scope, $cordovaSQLite) {
+    $scope.alterarIdioma = function(idioma) {
+        idiomaSelecionado = idioma;
+        //Altera o idioma do app
+        ChangeLanguage(idiomaSelecionado);
+    }
 });
 
 function ListarApontamentos() {
+
     var lista = [
         { data: '01/01/2015', horaEntrada: '10:00', horaSaidaAlmoco: '12:30', horaVoltaAlmoco: '13:30', horaSaida: '19:00' },
         { data: '02/01/2015', horaEntrada: '10:00', horaSaidaAlmoco: '12:30', horaVoltaAlmoco: '13:30', horaSaida: '19:00' },
@@ -76,23 +108,6 @@ function ListarApontamentos() {
         { data: '05/01/2015', horaEntrada: '10:00', horaSaidaAlmoco: '12:30', horaVoltaAlmoco: '13:30', horaSaida: '19:00' },
         { data: '08/01/2015', horaEntrada: '10:00', horaSaidaAlmoco: '12:30', horaVoltaAlmoco: '', horaSaida: '' }
     ];
-    
-    var query = "SELECT data, horaEntrada, horaSaidaAlmoco, horaVoltaAlmoco, horaSaida FROM timesheet order by id desc";
-    $cordovaSQLite.execute(db, query, [lastname]).then(function(res) {
-        if(res.rows.length > 0) {
-            var message = "SELECTED -> " + res.rows.item(0).firstname + " " + res.rows.item(0).lastname;
-            alert(message);
-            console.log(message);
-        } else {
-            alert("Nenhum resultado encontrado");
-            console.log("No results found");
-        }
-    }, function (err) {
-        alert(err);
-        console.error(err);
-    });
-
-    
     return lista;
 }
 
@@ -160,4 +175,3 @@ function FormatarHora(time, mask){
     
     return mask.replace('hh', hora).replace('mm', minuto).replace('ss', segundo);
 }
-            
