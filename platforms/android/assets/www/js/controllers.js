@@ -41,13 +41,13 @@ angular.module('starter.controllers', [])
     ChangeLanguage(idiomaSelecionado);
 })
 
-.controller('TimesheetController', function($scope, $cordovaSQLite) {
+.controller('TimesheetController', function($scope,$ionicPlatform,$cordovaSQLite) {
     
     $scope.apontarHoras = function() {
         
         var query = MarcarHorario(1);
-        $cordovaSQLite.execute(db, query, '').then(function(res) {
-            var message = "INSERT ID -> " + res.insertId;
+        $cordovaSQLite.execute(db, query, '').then(function(result) {
+            var message = "INSERT ID -> " + result.insertId;
             console.log(message);
             alert(message);
         
@@ -62,29 +62,48 @@ angular.module('starter.controllers', [])
         ChangeLanguage(idiomaSelecionado);
     }
     
-    $scope.timesheet = ListarApontamentos();
+    $ionicPlatform.ready(function() {
+
+        function ListarApontamentos() {
+
+            var lista = [];
+            var query = "SELECT id, data, horaEntrada, horaSaidaAlmoco, horaVoltaAlmoco, horaSaida FROM timesheet";
+            
+            $cordovaSQLite.execute(db, query, []).then(function(result) {
+                if(result.rows.length > 0) {
+                    for (var i = 0; i < result.rows.length; i++) {
+                        lista.push(
+                            { 
+                                "id" : result.rows.item(i).id, 
+                                "data" : result.rows.item(i).data, 
+                                "horaEntrada" : result.rows.item(i).horaEntrada, 
+                                "horaSaidaAlmoco" : result.rows.item(i).horaSaidaAlmoco, 
+                                "horaVoltaAlmoco" : result.rows.item(i).horaVoltaAlmoco, 
+                                "horaSaida" : result.rows.item(i).horaSaida
+                            }
+                        );
+                    }
+                } 
+                else {
+                    console.log("No results found");
+                    alert("Nenhum resultado encontrado");
+                }
+
+            }, function (err) {
+                console.error(err);
+                alert(err);
+            });
+
+            return lista;
+        }
+        
+        $scope.timesheet = ListarApontamentos();
     
-    /*$scope.timesheet = function() {
-        var lista;
-        var query = "SELECT data, horaEntrada, horaSaidaAlmoco, horaVoltaAlmoco, horaSaida FROM timesheet order by id desc";
-        alert(query);
-        $cordovaSQLite.execute(db, query, '').then(function(res) {
-            alert('teste');
-            if(res.rows.length > 0) {
-                lista = res.rows.item;
-                alert('sucesso');
-                alert(lista);
-
-            } else {
-                console.log("No results found");
-                alert("Nenhum resultado encontrado");
-            }
-
-        }, function (err) {
-            console.error(err);
-            alert(err);
-        });
-    }*/
+        alert(idiomaSelecionado);
+        //Altera o idioma do app
+        ChangeLanguage(idiomaSelecionado);
+        
+    })
     
     //Altera o idioma do app
     ChangeLanguage(idiomaSelecionado);
@@ -97,19 +116,6 @@ angular.module('starter.controllers', [])
         ChangeLanguage(idiomaSelecionado);
     }
 });
-
-function ListarApontamentos() {
-
-    var lista = [
-        { data: '01/01/2015', horaEntrada: '10:00', horaSaidaAlmoco: '12:30', horaVoltaAlmoco: '13:30', horaSaida: '19:00' },
-        { data: '02/01/2015', horaEntrada: '10:00', horaSaidaAlmoco: '12:30', horaVoltaAlmoco: '13:30', horaSaida: '19:00' },
-        { data: '03/01/2015', horaEntrada: '10:00', horaSaidaAlmoco: '12:30', horaVoltaAlmoco: '13:30', horaSaida: '19:00' },
-        { data: '04/01/2015', horaEntrada: '10:00', horaSaidaAlmoco: '12:30', horaVoltaAlmoco: '13:30', horaSaida: '19:00' },
-        { data: '05/01/2015', horaEntrada: '10:00', horaSaidaAlmoco: '12:30', horaVoltaAlmoco: '13:30', horaSaida: '19:00' },
-        { data: '08/01/2015', horaEntrada: '10:00', horaSaidaAlmoco: '12:30', horaVoltaAlmoco: '', horaSaida: '' }
-    ];
-    return lista;
-}
 
 function MarcarHorario(tipo) {
     
