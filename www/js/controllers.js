@@ -41,19 +41,22 @@ angular.module('starter.controllers', [])
     ChangeLanguage(idiomaSelecionado);
 })
 
-.controller('TimesheetController', function($scope,$ionicPlatform,$cordovaSQLite) {
+.controller('TimesheetController', function($scope, $ionicPlatform, $cordovaSQLite) {
     
     $scope.apontarHoras = function() {
         
-        var query = MarcarHorario(1);
-        $cordovaSQLite.execute(db, query, '').then(function(result) {
+        var hora = FormatarHora(new Date(), 'hh:mm');
+        var data = FormatarData(new Date(), 'dd/mm/yyyy');
+        var ultimoApontamento = BuscarUltimoApontamento($cordovaSQLite, data);
+        debugger;
+        var query = MarcarHorario(ultimoApontamento);
+        
+        $cordovaSQLite.execute(db, query, [hora, ultimoApontamento, data]).then(function(result) {
             var message = "INSERT ID -> " + result.insertId;
             console.log(message);
-            alert(message);
         
-        }, function (err) {
-            console.error(err);
-            alert(err);
+        }, function (exception) {
+            console.error(exception);
         });
         
         $scope.timesheet = ListarApontamentos();
@@ -63,11 +66,11 @@ angular.module('starter.controllers', [])
     }
     
     $ionicPlatform.ready(function() {
-
+debugger;
         function ListarApontamentos() {
 
             var lista = [];
-            var query = "SELECT id, data, horaEntrada, horaSaidaAlmoco, horaVoltaAlmoco, horaSaida FROM timesheet";
+            var query = "SELECT id, data, horaEntrada, horaSaidaAlmoco, horaVoltaAlmoco, horaSaida, ultimoApontamento FROM timesheet";
             
             $cordovaSQLite.execute(db, query, []).then(function(result) {
                 if(result.rows.length > 0) {
@@ -79,19 +82,18 @@ angular.module('starter.controllers', [])
                                 "horaEntrada" : result.rows.item(i).horaEntrada, 
                                 "horaSaidaAlmoco" : result.rows.item(i).horaSaidaAlmoco, 
                                 "horaVoltaAlmoco" : result.rows.item(i).horaVoltaAlmoco, 
-                                "horaSaida" : result.rows.item(i).horaSaida
+                                "horaSaida" : result.rows.item(i).horaSaida,
+                                "ultimoApontamento" : result.rows.item(i).ultimoApontamento
                             }
                         );
                     }
                 } 
                 else {
-                    console.log("No results found");
-                    alert("Nenhum resultado encontrado");
+                    console.log("Nenhum resultado encontrado");
                 }
 
-            }, function (err) {
-                console.error(err);
-                alert(err);
+            }, function (exception) {
+                console.error(exception);
             });
 
             return lista;
@@ -99,7 +101,7 @@ angular.module('starter.controllers', [])
         
         $scope.timesheet = ListarApontamentos();
     
-        alert(idiomaSelecionado);
+        console.log(idiomaSelecionado);
         //Altera o idioma do app
         ChangeLanguage(idiomaSelecionado);
         
@@ -117,34 +119,49 @@ angular.module('starter.controllers', [])
     }
 });
 
-function MarcarHorario(tipo) {
+function BuscarUltimoApontamento($cordovaSQLite, data) {
+    
+    var query = "SELECT ultimoApontamento FROM timesheet where data = ?";
+    var ultimoApontamento = 0;
+    
+    debugger;
+    $cordovaSQLite.execute(db, query, [data]).then(function(result) {
+        debugger;
+        if(result.rows.length > 0) {
+            ultimoApontamento = result.rows.item(0).ultimoApontamento;
+            ultimoApontamento = ultimoApontamento + 1;
+        }
+    }, function (exception) {
+        console.error(exception);
+    });
+    
+    debugger;
+    return ultimoApontamento;
+}
+
+function MarcarHorario(ultimoApontamento) {
     
     var sql = "";
-    var data = FormatarData(new Date(), 'dd/mm/yyyy');
-    var hora = FormatarHora(new Date(), 'hh:mm');
     
-    switch (tipo) {
+    switch (ultimoApontamento) {
         case 1:
             /* 1 - Entrada */
-            sql = "insert into timesheet (data, horaEntrada) values ('{0}', '{1}')";
-            sql = sql.replace('{0}', data).replace('{1}', hora);
-            
-            alert(sql);
+            sql = "insert into timesheet (horaEntrada, ultimoApontamento, data) values (?, ?, ?)";
             break;
 
         case 2:
             /* 2 - Saida para almoço */
-            
+            sql = "update timesheet set horaSaidaAlmoco = ?, ultimoApontamento = ? where data = ?";
             break;
 
         case 3:
             /* 3 - Volta do almoço */
-            
+            sql = "update timesheet set horaVoltaAlmoco = ?, ultimoApontamento = ? where data = ?";
             break;
 
         case 4:
             /* 4 - Saída */
-
+            sql = "update timesheet set horaSaida = ?, ultimoApontamento = ? where data = ?";
             break;
     }
     

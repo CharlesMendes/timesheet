@@ -56,7 +56,7 @@ angular.module('starter.controllers', [])
             alert(err);
         });
         
-        $scope.timesheet = ListarApontamentos();
+        //$scope.timesheet = ListarApontamentos();
         
         //Altera o idioma do app
         ChangeLanguage(idiomaSelecionado);
@@ -97,7 +97,7 @@ angular.module('starter.controllers', [])
             return lista;
         }
         
-        $scope.timesheet = ListarApontamentos();
+        //$scope.timesheet = ListarApontamentos();
     
         alert(idiomaSelecionado);
         //Altera o idioma do app
