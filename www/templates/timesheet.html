@@ -1,6 +1,6 @@
 <ion-view view-title="Timesheet">
     <ion-content>
-        <div class="content padding">
+        <div class="content padding"  style="background:url(img/area_trabalho.jpg)">
             <!--<center>
                 <h3 class="royal">
                     <a class="button button-icon icon ion-chevron-left royal"></a>
@@ -8,10 +8,10 @@
                     <a class="button button-icon icon ion-chevron-right royal"></a>
                 </h3>
             </center>-->
-            <button class="button button-block button-large button-outline button-royal ion-android-time" ng-click="apontarHoras()">
+            <button class="button button-block button-large button-outline button-royal ion-android-time" ng-click="apontarHoras();">
                 <span class="la-lancar-horas"></span>
             </button>
-            <div ng-repeat="time in timesheet | orderBy : '-id'" class="list">
+            <div ng-repeat="time in timesheet | orderBy : '-id' track by $index" class="list" > 
                 <div class="button-bar">
                     <a class="button button-royal">
                         {{ time.id }} - {{ time.data }}
