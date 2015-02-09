@@ -39,11 +39,11 @@ d:\node\Timesheet\platforms\android\assets\www\lib \
 d:\node\Timesheet\platforms\android\assets\www\plugins \
 d:\node\Timesheet\platforms\android\assets\www\templates \
 d:\node\Timesheet\platforms\android\assets\www\css\style.css \
+d:\node\Timesheet\platforms\android\assets\www\img\area_trabalho.jpg \
 d:\node\Timesheet\platforms\android\assets\www\img\ionic.png \
 d:\node\Timesheet\platforms\android\assets\www\js\app.js \
 d:\node\Timesheet\platforms\android\assets\www\js\controllers.js \
 d:\node\Timesheet\platforms\android\assets\www\js\ng-cordova.min.js \
-d:\node\Timesheet\platforms\android\assets\www\js\Sem título-1 \
 d:\node\Timesheet\platforms\android\assets\www\js\vendor \
 d:\node\Timesheet\platforms\android\assets\www\js\vendor\jquery-2.1.3.min.js \
 d:\node\Timesheet\platforms\android\assets\www\js\vendor\traducao \

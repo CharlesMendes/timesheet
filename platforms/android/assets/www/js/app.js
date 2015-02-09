@@ -1,7 +1,9 @@
 var db = null;
+var databaseName = 'timesheetDB.db'
 var app = angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 
 .run(function($ionicPlatform, $cordovaSQLite) {
+    
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -15,17 +17,33 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'
         }
         
         //Cria o banco de dados
-        db = $cordovaSQLite.openDB({ name: "timesheetDB.db" });
-        //$cordovaSQLite.execute(db, "TRUNCATE TABLE timesheet");
-        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS timesheet (id integer primary key, data text, horaEntrada text, horaSaidaAlmoco text, horaVoltaAlmoco text, horaSaida text)");
-        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS settings (id integer primary key, key text, value text)");
+        //db = $cordovaSQLite.openDB({ name: databaseName }); //Celular
+        db = window.openDatabase(databaseName, "1.0", "Timesheet App", 200000);   //Windows
         
+        //$cordovaSQLite.execute(db, "TRUNCATE TABLE timesheet");
+        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS timesheet (id integer primary key, data text, horaEntrada text, horaSaidaAlmoco text, horaVoltaAlmoco text, horaSaida text, ultimoApontamento integer)").then(function(result) {
+            var message = "Criada tabela timesheet ID -> " + result;
+            console.log(message);
+        
+        }, function (exception) {
+            console.error(exception);
+        });
+        
+        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS settings (id integer primary key, key text, value text)").then(function(result) {
+            var message = "Criada tabela settings ID -> " + result;
+            console.log(message);
+        
+        }, function (exception) {
+            console.error(exception);
+        });
+        
+        /*
         var query = "INSERT INTO settings (key, value) VALUES (?, ?)";
         $cordovaSQLite.execute(db, query, ["IDIOMA", "pt-br"]).then(function(res) {
             console.log("insertId IDIOMA: " + res.insertId);
-        }, function (err) {
-            console.error(err);
-        });
+        }, function (exception) {
+            console.error(exception);
+        });*/
     });
 })
 
